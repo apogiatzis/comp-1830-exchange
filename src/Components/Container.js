@@ -18,7 +18,7 @@ class Container extends Component {
                             <AddressBar account={this.props.account}
 										setBalance={this.props.setBalance}
 										AuBalance={this.props.AuBalance}
-										USDBalance={this.props.USDBalance}/>
+										GBPBalance={this.props.GBPBalance}/>
 							<div>
 							<Orderbook buys={this.props.buys} 
 									   sells={this.props.sells}/>

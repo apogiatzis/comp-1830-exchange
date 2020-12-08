@@ -12,7 +12,7 @@ function addressBar(props) {
         </p>
 		<p className={"panel-heading has-text-centered is-clipped is-size-7"}>
             Fiat Balance:
-            <strong>{props.USDBalance} USD </strong>
+            <strong>{props.GBPBalance} GBP </strong>
              Asset Balance:
 			<strong>{props.AuBalance} Gold</strong>
         </p>

@@ -6,7 +6,7 @@ import Description from './Components/Description';
 import Container from './Components/Container';
 import OrderbookABI from './Contracts/OrderbookABI';
 import Gold from './Contracts/Gold';
-import USD from './Contracts/USD';
+import GBP from './Contracts/GBP';
 
 
 class App extends Component {
@@ -17,7 +17,7 @@ class App extends Component {
         this.isWeb3 = true;
 		this.OrderbookABI = OrderbookABI;
 		this.Gold = Gold;
-		this.USD = USD;
+		this.GBP = GBP;
         this.onInputChangeUpdateField = this.onInputChangeUpdateField.bind(this);
 		this.setBalance = this.setBalance.bind(this);
         this.state = {
@@ -28,7 +28,7 @@ class App extends Component {
 			buys: [],
 			sells: [],
 			AuBalance: 0,
-			USDBalance: 0,
+			GBPBalance: 0,
             lastBlock: 0,			
 			     fields: {
 				buyprice: null,
@@ -91,14 +91,14 @@ setBalance = () => {
 	
 	let app = this;
 	
-    var contractUSD = new this.web3.eth.Contract(app.USD.abi,app.USD.address); 			
-	contractUSD.methods.balanceOf(app.web3.eth.defaultAccount).call().then(function(response){
+    var contractGBP = new this.web3.eth.Contract(app.GBP.abi,app.GBP.address); 			
+	contractGBP.methods.balanceOf(app.web3.eth.defaultAccount).call().then(function(response){
 	
 		if(response)
 		{
-			let USDBalance = response;
+			let GBPBalance = response;
 	app.setState({
-            USDBalance
+            GBPBalance
         })
 		}
 	})
@@ -260,14 +260,14 @@ setBalance = () => {
 		let app = this;
 		let amount = this.state.fields.buyamount;
 		let price = this.state.fields.buyprice;
-		var contractUSD = new this.web3.eth.Contract(app.USD.abi,app.USD.address);
+		var contractGBP = new this.web3.eth.Contract(app.GBP.abi,app.GBP.address);
 		var contractOB = new this.web3.eth.Contract(app.OrderbookABI.abi,app.OrderbookABI.address);
 		var sells = app.state.sells; 
 		
 		if(sells.length == 0 )
 		{
 
-		contractUSD.methods.approve(app.OrderbookABI.address,amount*price*100)
+		contractGBP.methods.approve(app.OrderbookABI.address,amount*price*100)
 				.send({from: app.web3.eth.defaultAccount}).then(function(response){
 				
 					if(response) {
@@ -290,7 +290,7 @@ setBalance = () => {
 			{
 			
 					
-			contractUSD.methods.approve(app.OrderbookABI.address,amount*price*100)
+			contractGBP.methods.approve(app.OrderbookABI.address,amount*price*100)
 				.send({from: app.web3.eth.defaultAccount}).then(function(response){
 				
 					if(response) {
@@ -306,7 +306,7 @@ setBalance = () => {
 		else	
 			{
 				
-		contractUSD.methods.approve(app.OrderbookABI.address,
+		contractGBP.methods.approve(app.OrderbookABI.address,
 											amount*price*100)
 				.send({from: app.web3.eth.defaultAccount}).then(function(response){
 				if(response) {
@@ -629,7 +629,7 @@ watchOrderbook() {
 								   sells={this.state.sells}
 								   setBalance={this.setBalance}
 								   AuBalance={this.state.AuBalance}
-								   USDBalance={this.state.USDBalance}
+								   GBPBalance={this.state.GBPBalance}
 								   Buy={this.Buy}
 								   Sell={this.Sell}	
 								   fields={this.state.fields}/>
